@@ -30,3 +30,24 @@ var a = new Array(10); // Creates an array with specified length
 ```javascript
 var a = new Array(5, 4, 3, 2, 1, "testing, testing"); // Arguments are now elements of array
 ```
+
+### Reading and Writing Array Elements
+You access an element of an array using the `[]` operator. A reference to the array should appear to the left of the brackets. An arbitrary expression that has a non-negative integer value should be inside the brackets. You can use this syntax to both read and write the value of an element of an array.
+```javascript
+var a = ["Apple", "Banana"];
+a[0] // Read first element
+a[2] = "Kiwi" // Write third element
+```
+
+Remember that arrays are a specialized kind of object. The square brackets used to access array elements work just like the square brackets used to access object properties. JavaScript converts the numeric array index you specify to a string—the index 1 becomes the string "1"—then uses that string as a property name.
+```javascript
+var a = ["Apple", "Banana"];
+a["1"] = "Orange"; // Banana is replaced by Orange.
+```
+
+The fact that array indexes are simply a special type of object property name means that JavaScript arrays have no notion of an _out of bounds_ error.
+```javascript
+a = [true, false];  // This array has elements at indexes 0 and 1
+a[2]                // => undefined. No element at this index.
+a[-1]               // => undefined. No property with this name.
+```
