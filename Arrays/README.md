@@ -123,3 +123,38 @@ var a = ["Apple", "Banana", "Orange", "Kiwi"];
 a.shift()   // "Apple"
 a           // ["Banana", "Orange", "Kiwi"]
  ```
+
+ ### Iterating Arrays
+ The most common way to loop through the elements of an array is with a `for` loop.
+ ```javascript
+for(var i = 0; i < arr.length; i++) {
+    // loop body
+}
+ ```
+ Above code does array length lookup on each iteration. So we can optimize further by
+ ```javascript
+for(var i = 0, len = arr.length; i < len; i++) { 
+    // loop body remains the same
+}
+ ```
+
+ You can also use a `for/in` loop with sparse arrays.
+ ```javascript
+for(var index in sparseArray) {
+    var value = sparseArray[index];
+    // Now do something with index and value
+}
+ ```
+
+ A `for/in` loop can return the names of inherited properties, such as the names of methods that have been added to Array.prototype. For this reason you should not use a for/in loop on an array unless you include an additional test to filter out unwanted properties.
+ ```javascript
+Array.prototype.name = "Google";
+var a = ["Apple", "Banana"];
+
+for(var i in a) {
+    if (!a.hasOwnProperty(i)) continue; // Skip inherited properties 
+    console.log(a[i]); // Will not print "Google"
+}
+ ```
+
+`for/in` loop does not guarantee the order in which elements are iterated.
