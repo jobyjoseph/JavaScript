@@ -78,3 +78,48 @@ a.length = 3; // a is now [1,2,3].
 a.length = 0; // Delete all elements. a is [].
 a.length = 5; // Length is 5, but no elements, like new Array(5)
 ```
+
+### Adding and Deleting Array Elements
+
+The simplest way to add elements to an array is to just assign values to new indexes.
+```javascript
+a = []          // Start with an empty array. 
+a[0] = "zero";  // And add elements to it. 
+a[1] = "one";
+```
+
+Another way to add an element is to use `push()` method.
+```javascript
+a = [];                 // Start with an empty array
+a.push("zero")          // Add a value at the end. a = ["zero"] 
+a.push("one", "two")    // Add two more values. a = ["zero", "one", "two"]
+```
+
+You can use the `unshift()` method to insert a value at the beginning of an array, shifting the existing array elements to higher indexes.
+```javascript
+var a = ["Apple", "Banana"];
+a.unshift("Orange", "Kiwi"); // ["Orange", "Kiwi", "Apple", "Banana"]
+```
+
+You can delete array elements with the `delete` operator, just as you can delete object properties.
+```javascript
+a = [1,2,3]; 
+delete a[1];    // a now has no element at index 1
+1 in a          // => false: no array index 1 is defined
+a.length        // => 3: delete does not affect array length
+```
+If you delete an element from an array, the array becomes sparse.
+
+Arrays have a `pop()` method (it works with `push()`) that reduces the length of an array by 1 but also returns the value of the deleted element.
+```javascript
+var a = ["Apple", "Banana", "Orange", "Kiwi"];
+a.pop()     // "Kiwi"
+a           // ["Apple", "Banana", "Orange"] 
+```
+
+ There is also a `shift()`method (which goes with `unshift()`) to remove an element from the beginning of an array. Unlike `delete`, the `shift()` method shifts all elements down to an index one lower than their current index.
+ ```javascript
+var a = ["Apple", "Banana", "Orange", "Kiwi"];
+a.shift()   // "Apple"
+a           // ["Banana", "Orange", "Kiwi"]
+ ```
