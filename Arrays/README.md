@@ -262,3 +262,26 @@ For an array, `toString()` method converts each of its elements to a string (cal
 [1, [2,'c']].toString()     // Yields '1,2,c'
 ```
 `toLocaleString()` is the localized version of `toString()`. It converts each array element to a string by calling the `toLocaleString()` method of the element, and then it concat- enates the resulting strings using a locale-specific (and implementation-defined) sepa- rator string.
+
+## ECMAScript 5 Array Methods
+There are few points common to ES5 Array methods. First, most of the methods accept a function as their first argument and invoke that function once for each element (or some elements) of the array. If the array is sparse, the function you pass is not invoked for nonexistent elements. In most cases, the function you supply is invoked with three arguments: the value of the array element, the index of the array element, and the array itself. None of the ECMAScript 5 array methods modify the array on which they are invoked.
+
+### forEach()
+The `forEach()` method iterates through an array, invoking a function you specify for each element.
+```javascript
+var a = [2, 4, 6, 8, 10];
+var sum = 0;
+a.forEach(function(value) {
+  sum += value;
+});
+console.log(sum); // 30
+```
+Note that `forEach()` does not provide a way to terminate iteration before all elements have been passed to the function. That is, there is no equivalent of the break statement you can use with a regular for loop. If you need to terminate early, you must throw an exception, and place the call to `forEach()` within a try block.
+
+### map()
+The `map()` method passes each element of the array on which it is invoked to the function you specify, and returns an array containing the values returned by that function.
+```javascript
+a = [1, 2, 3];
+b = a.map(function(x) { return x*x; }); // b is [1, 4, 9]
+``` 
+The function you pass to `map()` is invoked in the same way as a function passed to `forEach()`. For the `map()` method, however, the function you pass should return a value. Note that `map()` returns a new array: it does not modify the array it is invoked on. If that array is sparse, the returned array will be sparse in the same way: it will have the same length and the same missing elements.
