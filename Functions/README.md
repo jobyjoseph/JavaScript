@@ -95,3 +95,11 @@ Constructor functions do not normally use the `return` keyword. They typically i
 ### Indirect Invocation
 
 JavaScript functions are objects and like all JavaScript objects, they have methods. Two of these methods, `call()` and `apply()`, invoke the function indirectly. Both methods allow you to explicitly specify the `this` value for the invocation, which means you can invoke any function as a method of any object, even if it is not actually a method of that object. Both methods also allow you to specify the arguments for the invocation. The `call()` method uses its own argument list as arguments to the function and the `apply()` method expects an array of values to be used as arguments.
+
+## Function Arguments and Parameters
+
+### Optional Parameters
+
+When a function is invoked with fewer arguments than declared parameters, the additional parameters are set to the `undefined` value.
+
+The programmer who calls your function cannot omit the first argument and pass the second: she would have to explicitly pass undefined the first argument.
