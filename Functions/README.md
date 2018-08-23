@@ -102,4 +102,8 @@ JavaScript functions are objects and like all JavaScript objects, they have meth
 
 When a function is invoked with fewer arguments than declared parameters, the additional parameters are set to the `undefined` value.
 
-The programmer who calls your function cannot omit the first argument and pass the second: she would have to explicitly pass undefined the first argument.
+The programmer who calls your function cannot omit the first argument and pass the second: she would have to explicitly pass `undefined` the first argument.
+
+### Variable-Length Argument Lists: The Arguments Object
+
+Within the body of a function, the identifier `arguments` refers to the Arguments object for that invocation. The Arguments object is an array-like object that allows the argument values passed to the function to be retrieved by number, rather than by name.
