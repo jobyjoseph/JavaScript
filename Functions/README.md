@@ -121,3 +121,15 @@ function f(x) {
 ```
 
 This special behavior of the Arguments object has been removed in the _strict_ mode of ECMAScript 5. There are other strict-mode differences as well. In non-strict functions, `arguments` is just an identifier. In _strict_ mode, it is effectively a reserved word. Strict mode functions cannot use arguments as a parameter name or as a local variable name, and they cannot assign values to arguments.
+
+## Functions As Namespaces
+
+It is sometimes useful to define a function simply to act as a temporary namespace in which you can define variables without polluting the global namespace.
+
+```javascript
+(function() {
+  // Module code goes here.
+})();
+```
+
+The open parenthesis before function is required because without it, the JavaScript interpreter tries to parse the function keyword as a function declaration statement. With the parenthesis, the interpreter correctly recognizes this as a function definition expression. It is idiomatic to use the parentheses, even when they are not required, around a function that is to be invoked immediately after being defined.
