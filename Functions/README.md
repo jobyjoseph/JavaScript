@@ -107,3 +107,17 @@ The programmer who calls your function cannot omit the first argument and pass t
 ### Variable-Length Argument Lists: The Arguments Object
 
 Within the body of a function, the identifier `arguments` refers to the Arguments object for that invocation. The Arguments object is an array-like object that allows the argument values passed to the function to be retrieved by number, rather than by name.
+
+Functions that can accept any number of arguments are called _variadic functions_, _variable arity functions_, or _varargs_ functions.
+
+The Arguments object has one very unusual feature. In _non-strict_ mode, when a function has named parameters, the array elements of the Arguments object are aliases for the parameters that hold the function arguments. The numbered elements of the Arguments object and the parameter names are like two different names for the same variable. Changing the value of an argument with an argument name changes the value that is retrieved through the `arguments[]` array. Conversely, changing the value of an argument through the `arguments[]` array changes the value that is retrieved by the argument name. Here is an example that clarifies this:
+
+```javascript
+function f(x) {
+  console.log(x); // Displays the initial value of the argument
+  arguments[0] = null; // Changing the array element also changes x!
+  console.log(x); // Now displays "null"
+}
+```
+
+This special behavior of the Arguments object has been removed in the _strict_ mode of ECMAScript 5. There are other strict-mode differences as well. In non-strict functions, `arguments` is just an identifier. In _strict_ mode, it is effectively a reserved word. Strict mode functions cannot use arguments as a parameter name or as a local variable name, and they cannot assign values to arguments.
