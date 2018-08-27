@@ -133,3 +133,41 @@ It is sometimes useful to define a function simply to act as a temporary namespa
 ```
 
 The open parenthesis before function is required because without it, the JavaScript interpreter tries to parse the function keyword as a function declaration statement. With the parenthesis, the interpreter correctly recognizes this as a function definition expression. It is idiomatic to use the parentheses, even when they are not required, around a function that is to be invoked immediately after being defined.
+
+## Closures
+
+Like most modern programming languages, JavaScript uses lexical scoping. This means that functions are executed using the variable scope that was in effect when they were defined, not the variable scope that is in effect when they are invoked. In order to implement lexical scoping, the internal state of a JavaScript function object must include not only the code of the function but also a reference to the current scope chain. This combination of a function object and a scope (a set of variable bindings) in which the function’s variables are resolved is called a closure in the computer science literature.
+
+Technically, all JavaScript functions are closures: they are objects, and they have a scope chain associated with them. Most functions are invoked using the same scope chain that was in effect when the function was defined, and it doesn’t really matter that there is a closure involved. Closures become interesting when they are invoked under a different scope chain than the one that was in effect when they were defined. This happens most commonly when a nested function object is returned from the function within which it was defined.
+
+The first step to understanding closures is to review the lexical scoping rules for nested functions.
+
+```javascript
+var scope = "global scope"; // A global variable
+function checkscope() {
+  var scope = "local scope"; // A local variable
+  function f() {
+    return scope; // Return the value in scope here
+  }
+  return f();
+}
+checkscope(); // => "local scope"
+```
+
+Now let’s change the code just slightly.
+
+```javascript
+var scope = "global scope";
+function checkscope() {
+  var scope = "local scope";
+  function f() {
+    return scope;
+  }
+  return f;
+}
+checkscope()();
+```
+
+In this code, a pair of parentheses has moved from inside checkscope() to outside of it. Instead of invoking the nested function and returning its result, checkscope() now just returns the nested function object itself.
+
+Remember the fundamental rule of lexical scoping: JavaScript functions are executed using the scope chain that was in effect when they were defined. The nested function `f()` was defined under a scope chain in which the variable scope was bound to the value _local scope_. That binding is still in effect when `f` is executed, wherever it is executed from. So the last line of code above returns `local scope`, not `global scope`. This, in a nutshell, is the surprising and powerful nature of closures: they capture the local variable (and parameter) bindings of the outer function within which they are defined.
