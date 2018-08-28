@@ -171,3 +171,29 @@ checkscope()();
 In this code, a pair of parentheses has moved from inside checkscope() to outside of it. Instead of invoking the nested function and returning its result, checkscope() now just returns the nested function object itself.
 
 Remember the fundamental rule of lexical scoping: JavaScript functions are executed using the scope chain that was in effect when they were defined. The nested function `f()` was defined under a scope chain in which the variable scope was bound to the value _local scope_. That binding is still in effect when `f` is executed, wherever it is executed from. So the last line of code above returns `local scope`, not `global scope`. This, in a nutshell, is the surprising and powerful nature of closures: they capture the local variable (and parameter) bindings of the outer function within which they are defined.
+
+## Function Properties, Methods, and Constructor
+
+### The `length` Property
+The `length` property of a function returns the arity of the function—the number of parameters it declares in its parameter list, which is usually the number of arguments that the function expects.
+
+### The `prototype` Property
+Every function has a prototype property that refers to an object known as the _prototype object_. Every function has a different prototype object. When a function is used as a constructor, the newly created object inherits properties from the prototype object.
+
+### The `call()` and `apply()` Methods
+`call()` and `apply()` allow you to indirectly invoke a function as if it were a method of some other object. The first argument to both `call()` and `apply()` is the object on which the function is to be invoked; this argument is the invocation context and becomes the value of the `this` keyword within the body of the function. To invoke the function f() as a method of the object `o` (passing no arguments), you could use either `call()` or `apply()`:
+```javascript
+f.call(o); 
+f.apply(o);
+```
+In ECMAScript 5 strict mode the first argument to `call()` or `apply()` becomes the value of `this`, even if it is a primitive value or `null` or `undefined`. In ECMAScript 3 and non-strict mode, a value of `null` or `undefined` is replaced with the global object and a primitive value is replaced with the corresponding wrapper object.
+
+### The `bind()` method
+The `bind()` method was added in ECMAScript 5, but it is easy to simulate in ECMAScript 3. As its name implies, the primary purpose of `bind()` is to bind a function to an object. When you invoke the `bind()` method on a function `f` and pass an object `o`, the method returns a new function. Invoking the new function (as a function) invokes the original function `f` as a method of `o`. Any arguments you pass to the new function are passed to the original function. For example:
+```javascript
+function f(y) { return this.x + y; }  // This function needs to be bound
+var o = { x : 1 };                    // An object we'll bind to
+var g = f.bind(o);                    // Calling g(x) invokes o.f(x)
+g(2)                                  // => 3
+```
+The ECMAScript 5 `bind()` method does more than just bind a function to an object. It also performs partial application: any arguments you pass to `bind()` after the first are bound along with the this value. Partial application is a common technique in functional programming and is sometimes called _currying_. 
