@@ -1,0 +1,1 @@
+JavaScript’s fundamental datatype is the _object_.
