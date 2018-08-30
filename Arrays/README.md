@@ -9,7 +9,7 @@ The easiest way to create an array is with an array literal.
 ```javascript
 var empty = []; // An array with no elements
 var primes = [2, 3, 5, 7, 11]; // An array with 5 numeric elements
-var misc = [1.1, true, "a"]; // 3 elements of various types + trailing comma
+var misc = [1.1, true, "a",]; // 3 elements of various types + trailing comma
 ```
 
 If you omit a value from an array literal, the omitted element is given the value `undefined`.
