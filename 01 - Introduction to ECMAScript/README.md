@@ -1,0 +1,1 @@
+ECMAScript / JavaScript is a high-level interpreted programming language. JavaScript was created at Netscape. Netscape submitted the language for standardization to ECMA—the European Computer Manufacturer's Association. Due to trademark issues, the standardized version of the language was called _ECMAScript_.
