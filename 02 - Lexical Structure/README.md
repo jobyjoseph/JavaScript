@@ -23,3 +23,23 @@ JavaScript supports two styles of comments.
 /* This is a 
    multi-line comment */ 
 ```
+
+### Identifiers
+In JavaScript, identifiers are used to name variables and functions. It is just a name. The name should follow certain rules:
+* Can contain only letters, digits, underscore (_), or dollar sign ($)
+* First character cannot be a digit
+```javascript
+// Legal identifiers
+a
+_
+$
+a1
+_name
+$div
+\u0D1C\u0D4B\u0D2C\u0D3F // non english
+```
+
+JavaScript reserves a number of identifiers as the keywords of the language itself. You cannot use these words as identifiers in your programs.
+
+## Separator(;)
+JavaScript uses the semicolon (;) to separate statements from each other. You can omit semicolon between two statements if they are written in separate lines. There are exceptions:
