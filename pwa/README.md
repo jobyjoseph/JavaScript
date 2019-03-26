@@ -124,3 +124,70 @@ self.addEventListener("fetch", function(e) {
   );
 });
 ```
+
+## Push Notification
+Update check in app.js to 
+```js
+if ("serviceWorker" in navigator && "PushManager" in window) {}
+```
+Inside app.js service worker register callback
+```js
+// checking for subscription
+    sw.pushManager.getSubscription().then(function(subscription) {
+      isSubscribed = !(subscription === null);
+
+      if (isSubscribed) {
+        console.log("User IS subscribed.");
+      } else {
+        console.log("User is NOT subscribed.");
+        // Subscribe user
+        const applicationServerPublicKey =
+          "BL9-ndSdb8V56v_tGZzN5PD7b7YCvNNck-sy1peHC204qx78S_CMWQLhjA7p5L3dR_L8loyMvGVyVFFijlTUrxE";
+        const applicationServerKey = urlB64ToUint8Array(
+          applicationServerPublicKey
+        );
+        sw.pushManager
+          .subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: applicationServerKey
+          })
+          .then(function(subscription) {
+            console.log("User is subscribed.");
+          })
+          .catch(function(err) {
+            console.log("Failed to subscribe the user: ", err);
+          });
+      }
+    });
+```
+
+```js
+function urlB64ToUint8Array(base64String) {
+  const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+  const base64 = (base64String + padding)
+    .replace(/\-/g, "+")
+    .replace(/_/g, "/");
+
+  const rawData = window.atob(base64);
+  const outputArray = new Uint8Array(rawData.length);
+
+  for (let i = 0; i < rawData.length; ++i) {
+    outputArray[i] = rawData.charCodeAt(i);
+  }
+  return outputArray;
+}
+```
+
+Inside service worker file
+```js
+self.addEventListener("push", function(event) {
+  console.log("inside push");
+  const title = "272/6 Virat Kohli 98*";
+  const options = {
+    body: "42 runs to win from 34 balls",
+    icon: "images/icons/icon-72x72.png"
+  };
+
+  event.waitUntil(self.registration.showNotification(title, options));
+});
+```
